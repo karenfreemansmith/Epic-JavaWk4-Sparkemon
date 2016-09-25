@@ -15,11 +15,10 @@ Practice project for Epicodus - Java, week 4 lessons. Create a virtual pet progr
 
 #### Database Diagram:
 ![database diagram](database.png)
-(create diagram at - http://ondras.zarovi.cz/sql/demo/  )
 
 #### Technical Specifications:
-( add chart, make table at - http://www.tablesgenerator.com/markdown_tables )
-
+( add chart, make table at -
+http://www.tablesgenerator.com/markdown_tables )
 
 ## Setup/Installation
 * Clone directory
@@ -27,7 +26,8 @@ Practice project for Epicodus - Java, week 4 lessons. Create a virtual pet progr
   * CREATE DATABASE sparkemon;
   * \c sparkemon;
   * CREATE TABLE players (id serial PRIMARY KEY, name varchar, email varchar);
-  
+  * CREATE TABLE pets (id serial PRIMARY KEY, name varchar, playerId int);
+
 * Type 'gradle run' inside the directory
 * Navigate to 'http://localhost:4567'
 
