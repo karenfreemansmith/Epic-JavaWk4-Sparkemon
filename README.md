@@ -24,7 +24,10 @@ Practice project for Epicodus - Java, week 4 lessons. Create a virtual pet progr
 ## Setup/Installation
 * Clone directory
 * Setup database in PSQL:
-  * ...
+  * CREATE DATABASE sparkemon;
+  * \c sparkemon;
+  * CREATE TABLE players (id serial PRIMARY KEY, name varchar, email varchar);
+  
 * Type 'gradle run' inside the directory
 * Navigate to 'http://localhost:4567'
 
