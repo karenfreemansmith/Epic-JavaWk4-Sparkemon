@@ -46,6 +46,12 @@ public class PlayerTest {
   }
 
   @Test
+  public void find_returnsPlayerWithSameId_player2() {
+    player2 = new Player("Harriet", "harriet@harriet.com");
+    assertEquals(Player.find(player2.getId()), player2);
+  }
+
+  @Test
   public void all_returnsAllInstancesOfPlayer_true() {
     player2 = new Player("Harriet", "harriet@harriet.com");
     assertTrue(Player.all().get(0).equals(player));

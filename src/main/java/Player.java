@@ -46,6 +46,16 @@ public class Player {
     }
   }
 
+  public static Player find(int id) {
+    String sql = "SELECT * FROM players where id=:id";
+    try(Connection cn = DB.sql2o.open()) {
+      Player player = cn.createQuery(sql)
+        .addParameter("id",id)
+        .executeAndFetchFirst(Player.class);
+      return player;
+    }
+  }
+
   public static List<Player> all() {
     String sql = "SELECT * FROM players";
     try(Connection cn = DB.sql2o.open()) {
