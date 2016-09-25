@@ -12,6 +12,8 @@ public class DBRule extends ExternalResource {
     try(Connection cn = DB.sql2o.open()) {
       String sql = "DELETE FROM players *;";
       cn.createQuery(sql).executeUpdate();
+      sql = "DELETE FROM pets *;";
+      cn.createQuery(sql).executeUpdate();
     }
   }
 

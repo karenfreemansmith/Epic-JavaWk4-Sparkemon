@@ -1,5 +1,6 @@
 import org.junit.*;
 import static org.junit.Assert.*;
+import java.util.Arrays;
 
 public class PlayerTest {
   private Player player;
@@ -58,5 +59,12 @@ public class PlayerTest {
     assertTrue(Player.all().get(1).equals(player2));
   }
 
+  @Test
+  public void getPets_returnsAllPlayerPets_petList() {
+    Pet pet1 = new Pet("Bubbles", player.getId());
+    Pet pet2 = new Pet("Spud", player.getId());
+    Pet[] pets = new Pet[] {pet1, pet2};
+    assertTrue(player.getPets().containsAll(Arrays.asList(pets)));
+  }
 
 }

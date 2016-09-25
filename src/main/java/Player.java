@@ -63,4 +63,13 @@ public class Player {
     }
   }
 
+  public List<Pet> getPets() {
+    String sql = "SELECT * FROM pets WHERE playerId=:id";
+    try(Connection cn = DB.sql2o.open()) {
+      return cn.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeAndFetch(Pet.class);
+    }
+  }
+
 }
