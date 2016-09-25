@@ -11,7 +11,7 @@ Practice project for Epicodus - Java, week 4 lessons. Create a virtual pet progr
 
 ### Specifications
 #### User Stories:
-* ...
+* As a player, I can have multiple pets
 
 #### Database Diagram:
 ![database diagram](database.png)
