@@ -17,8 +17,11 @@ Practice project for Epicodus - Java, week 4 lessons. Create a virtual pet progr
 ![database diagram](database.png)
 
 #### Technical Specifications:
-( add chart, make table at -
-http://www.tablesgenerator.com/markdown_tables )
+| Behavior                               |             Input             |           Output           |
+|----------------------------------------|:-----------------------------:|:--------------------------:|
+| Can create players with name and email |   "Henry", "henry@henry.com"  | "Henry", "henry@henry.com" |
+| Can create pets with name              |           "Bubbles"           |          "Bubbles"         |
+| Can assign multiple pets to a player   | Henry + Bubbles, Henry + Spud |        Bubbles, Spud       |
 
 ## Setup/Installation
 * Clone directory
