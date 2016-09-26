@@ -1,5 +1,6 @@
 import org.sql2o.*;
 import java.util.List;
+import java.sql.Timestamp;
 
 public class Pet {
   private int id;
@@ -8,6 +9,10 @@ public class Pet {
   private int foodLevel;
   private int sleepLevel;
   private int playLevel;
+  private Timestamp birthday;
+  private Timestamp lastSlept;
+  private Timestamp lastAte;
+  private Timestamp lastPlayed;
 
   public static final int MAX_FOOD_LEVEL = 6;
   public static final int MAX_SLEEP_LEVEL = 12;
@@ -35,21 +40,43 @@ public class Pet {
     return playerId;
   }
 
+  public Timestamp getBirthday() {
+    return birthday;
+  }
+
   public int getFoodLevel() {
     return foodLevel;
+  }
+
+  public Timestamp getLastAte() {
+    return lastAte;
   }
 
   public int getSleepLevel() {
     return sleepLevel;
   }
 
+  public Timestamp getLastSlept() {
+    return lastSlept;
+  }
+
   public int getPlayLevel() {
     return playLevel;
+  }
+
+  public Timestamp getLastPlayed() {
+    return lastPlayed;
   }
 
   public void feed() {
     if(foodLevel>=MAX_FOOD_LEVEL) {
       throw new UnsupportedOperationException("Your pet is full, you cannot feed it more at this time.");
+    }
+    String sql = "UPDATE pets SET lastate = now() WHERE id=:id";
+    try(Connection cn = DB.sql2o.open()) {
+      cn.createQuery(sql)
+        .addParameter("id", id)
+        .executeUpdate();
     }
     foodLevel++;
   }
@@ -58,12 +85,24 @@ public class Pet {
     if(sleepLevel>=MAX_SLEEP_LEVEL) {
       throw new UnsupportedOperationException("Your pet is not tired, it will not sleep right now.");
     }
+    String sql = "UPDATE pets SET lastslept = now() WHERE id=:id";
+    try(Connection cn = DB.sql2o.open()) {
+      cn.createQuery(sql)
+        .addParameter("id", id)
+        .executeUpdate();
+    }
     sleepLevel++;
   }
 
   public void play() {
     if(playLevel>=MAX_PLAY_LEVEL) {
       throw new UnsupportedOperationException("Your pet is bored, it refuses to play anymore.");
+    }
+    String sql = "UPDATE pets SET lastplayed = now() WHERE id=:id";
+    try(Connection cn = DB.sql2o.open()) {
+      cn.createQuery(sql)
+        .addParameter("id", id)
+        .executeUpdate();
     }
     playLevel++;
   }
@@ -84,7 +123,7 @@ public class Pet {
   }
 
   public void save() {
-    String sql = "INSERT INTO pets (name, playerId) VALUES (:name, :playerId)";
+    String sql = "INSERT INTO pets (name, playerId, birthday) VALUES (:name, :playerId, now())";
     try(Connection cn = DB.sql2o.open()) {
       this.id=(int) cn.createQuery(sql, true)
         .addParameter("name", this.name)

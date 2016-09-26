@@ -1,6 +1,9 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.sql2o.*;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.text.DateFormat;
 
 public class PetTest {
   private Pet testPet;
@@ -66,6 +69,14 @@ public class PetTest {
   }
 
   @Test
+  public void play_recordsTimeLastPlayedInDatabase() {
+    testPet.play();
+    Timestamp lastPlayed = Pet.find(testPet.getId()).getLastPlayed();
+    Timestamp rightNow = new Timestamp(new Date().getTime());
+    assertEquals(DateFormat.getDateTimeInstance().format(rightNow), DateFormat.getDateTimeInstance().format(lastPlayed));
+  }
+
+  @Test
   public void pet_foodLevelCannotGoBeyondMaxValue(){
     for(int i = Pet.MIN_ALL_LEVELS; i <= (Pet.MAX_FOOD_LEVEL + 2); i++){
       try {
@@ -76,6 +87,14 @@ public class PetTest {
   }
 
   @Test
+  public void feed_recordsTimeLastAteInDatabase() {
+    testPet.feed();
+    Timestamp lastAte = Pet.find(testPet.getId()).getLastAte();
+    Timestamp rightNow = new Timestamp(new Date().getTime());
+    assertEquals(DateFormat.getDateTimeInstance().format(rightNow), DateFormat.getDateTimeInstance().format(lastAte));
+  }
+
+  @Test
   public void pet_sleepLevelCannotGoBeyondMaxValue(){
     for(int i = Pet.MIN_ALL_LEVELS; i <= (Pet.MAX_SLEEP_LEVEL + 2); i++){
       try {
@@ -83,6 +102,14 @@ public class PetTest {
       } catch (UnsupportedOperationException exception) { }
     }
     assertTrue(testPet.getSleepLevel() <= Pet.MAX_SLEEP_LEVEL);
+  }
+
+  @Test
+  public void sleep_recordsTimeLastSleptInDatabase() {
+    testPet.sleep();
+    Timestamp lastSlept = Pet.find(testPet.getId()).getLastSlept();
+    Timestamp rightNow = new Timestamp(new Date().getTime());
+    assertEquals(DateFormat.getDateTimeInstance().format(rightNow), DateFormat.getDateTimeInstance().format(lastSlept));
   }
 
   @Test
@@ -108,6 +135,13 @@ public class PetTest {
   public void save_assignsIdToPet() {
     Pet savedPet = Pet.all().get(0);
     assertEquals(savedPet.getId(), testPet.getId());
+  }
+
+  @Test
+  public void save_recordsTimeOfCreationInDatabase() {
+    Timestamp savedPetBirthday = Pet.find(testPet.getId()).getBirthday();
+    Timestamp rightNow = new Timestamp(new Date().getTime());
+    assertEquals(rightNow.getDay(), savedPetBirthday.getDay());
   }
 
   @Test
