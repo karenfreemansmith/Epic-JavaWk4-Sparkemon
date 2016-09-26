@@ -12,6 +12,7 @@ Practice project for Epicodus - Java, week 4 lessons. Create a virtual pet progr
 ### Specifications
 #### User Stories:
 * As a player, I can have multiple pets
+* As a pet, I need to eat, sleep, and play or I will die
 
 #### Database Diagram:
 ![database diagram](database.png)
@@ -29,7 +30,8 @@ Practice project for Epicodus - Java, week 4 lessons. Create a virtual pet progr
   * CREATE DATABASE sparkemon;
   * \c sparkemon;
   * CREATE TABLE players (id serial PRIMARY KEY, name varchar, email varchar);
-  * CREATE TABLE pets (id serial PRIMARY KEY, name varchar, playerId int);
+  * CREATE TABLE pets (id serial PRIMARY KEY, name varchar, playerId int, birthday timestamp, lastate timestamp, lastslept timestamp, lastplayed timestamp);
+  * CREATE DATABASE sparkemon_test WITH TEMPLATE sparkemon;
 
 * Type 'gradle run' inside the directory
 * Navigate to 'http://localhost:4567'
