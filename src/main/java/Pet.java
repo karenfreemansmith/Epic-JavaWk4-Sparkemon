@@ -1,6 +1,8 @@
 import org.sql2o.*;
 import java.util.List;
 import java.sql.Timestamp;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Pet {
   private int id;
@@ -13,6 +15,7 @@ public class Pet {
   private Timestamp lastSlept;
   private Timestamp lastAte;
   private Timestamp lastPlayed;
+  private Timer timer;
 
   public static final int MAX_FOOD_LEVEL = 6;
   public static final int MAX_SLEEP_LEVEL = 12;
@@ -26,6 +29,21 @@ public class Pet {
     this.sleepLevel=MAX_SLEEP_LEVEL/2;
     this.playLevel=MAX_PLAY_LEVEL/2;
     this.save();
+    timer = new Timer();
+  }
+
+  public void startTimer() {
+    Pet currentPet = this;
+    TimerTask timerTask = new TimerTask() {
+      @Override
+      public void run() {
+        if(currentPet.isAlive() == false) {
+          cancel();
+        }
+        depleteLevels();
+      }
+    };
+    this.timer.schedule(timerTask, 0, 600);
   }
 
   public int getId() {
@@ -108,9 +126,11 @@ public class Pet {
   }
 
   public void depleteLevels() {
-    playLevel--;
-    foodLevel--;
-    sleepLevel--;
+    if(isAlive()) {
+      playLevel--;
+      foodLevel--;
+      sleepLevel--;
+    }
   }
 
   public boolean isAlive() {

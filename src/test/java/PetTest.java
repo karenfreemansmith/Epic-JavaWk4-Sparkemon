@@ -176,4 +176,25 @@ public class PetTest {
     assertTrue(Pet.all().get(1).equals(anotherPet));
   }
 
+  @Test
+  public void timer_executesDepleteLevelsMethod() {
+    int firstPlayLevel = testPet.getPlayLevel();
+    testPet.startTimer();
+    try {
+      Thread.sleep(6000);
+    } catch (InterruptedException exception) {}
+    int secondPlayLevel = testPet.getPlayLevel();
+    assertTrue(firstPlayLevel > secondPlayLevel);
+  }
+
+  @Test
+  public void timer_haltsAfterMonsterDies() {
+    testPet.startTimer();
+    try {
+      Thread.sleep(6000);
+    } catch (InterruptedException exception) {}
+    assertFalse(testPet.isAlive());
+    assertTrue(testPet.getFoodLevel() >=0);
+  }
+
 }
