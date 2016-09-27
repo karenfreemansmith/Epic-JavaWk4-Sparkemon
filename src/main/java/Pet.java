@@ -4,33 +4,25 @@ import java.sql.Timestamp;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Pet {
-  private int id;
-  private String name;
-  private int playerId;
-  private int foodLevel;
-  private int sleepLevel;
-  private int playLevel;
-  private Timestamp birthday;
-  private Timestamp lastSlept;
-  private Timestamp lastAte;
-  private Timestamp lastPlayed;
-  private Timer timer;
+public abstract class Pet {
+  public int id;
+  public String name;
+  public int playerId;
+  public int foodLevel;
+  public int sleepLevel;
+  public int playLevel;
+  public Timestamp birthday;
+  public Timestamp lastSlept;
+  public Timestamp lastAte;
+  public Timestamp lastPlayed;
+  public Timer timer;
 
   public static final int MAX_FOOD_LEVEL = 6;
   public static final int MAX_SLEEP_LEVEL = 12;
   public static final int MAX_PLAY_LEVEL = 16;
   public static final int MIN_ALL_LEVELS = 0;
 
-  public Pet(String name, int playerId) {
-    this.name = name;
-    this.playerId = playerId;
-    this.foodLevel=MAX_FOOD_LEVEL/2;
-    this.sleepLevel=MAX_SLEEP_LEVEL/2;
-    this.playLevel=MAX_PLAY_LEVEL/2;
-    this.save();
-    timer = new Timer();
-  }
+
 
   public void startTimer() {
     Pet currentPet = this;
@@ -153,22 +145,7 @@ public class Pet {
     }
   }
 
-  public static Pet find(int id) {
-    String sql = "SELECT * FROM pets WHERE id=:id";
-    try(Connection cn = DB.sql2o.open()) {
-      Pet pet = cn.createQuery(sql)
-        .addParameter("id", id)
-        .executeAndFetchFirst(Pet.class);
-      return pet;
-    }
-  }
 
-  public static List<Pet> all() {
-    String sql = "SELECT * FROM pets";
-    try(Connection cn = DB.sql2o.open()) {
-      return cn.createQuery(sql).executeAndFetch(Pet.class);
-    }
-  }
 
   @Override
   public boolean equals(Object otherPet) {
