@@ -5,21 +5,21 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.text.DateFormat;
 
-public class PetTest {
-  private Pet testPet;
-  private Pet anotherPet;
+public class WaterPetTest {
+  private WaterPet testPet;
+  private WaterPet anotherPet;
 
   @Rule
   public DBRule database = new DBRule();
 
   @Before
   public void setup() {
-    testPet = new Pet("Bubbles", 1);
+    testPet = new WaterPet("Bubbles", 1);
   }
 
   @Test
   public void pet_instantiatesCorrectly_true() {
-    assertEquals(true, testPet instanceof Pet);
+    assertEquals(true, testPet instanceof WaterPet);
   }
 
   @Test
@@ -71,7 +71,7 @@ public class PetTest {
   @Test
   public void play_recordsTimeLastPlayedInDatabase() {
     testPet.play();
-    Timestamp lastPlayed = Pet.find(testPet.getId()).getLastPlayed();
+    Timestamp lastPlayed = WaterPet.find(testPet.getId()).getLastPlayed();
     Timestamp rightNow = new Timestamp(new Date().getTime());
     assertEquals(DateFormat.getDateTimeInstance().format(rightNow), DateFormat.getDateTimeInstance().format(lastPlayed));
   }
@@ -124,7 +124,7 @@ public class PetTest {
 
   @Test
   public void isAlive_recognizeWhenPetDies_true() {
-    anotherPet = new Pet("Spud", 1);
+    anotherPet = new WaterPet("Spud", 1);
     for(int i = Pet.MIN_ALL_LEVELS; i<= Pet.MAX_FOOD_LEVEL; i++) {
       anotherPet.depleteLevels();
     }
@@ -133,7 +133,7 @@ public class PetTest {
 
   @Test
   public void save_assignsIdToPet() {
-    Pet savedPet = Pet.all().get(0);
+    WaterPet savedPet = WaterPet.all().get(0);
     assertEquals(savedPet.getId(), testPet.getId());
   }
 
@@ -146,7 +146,7 @@ public class PetTest {
 
   @Test
   public void equals_returnsTrueIfNameAndPLayerIDAreSame_true() {
-    anotherPet = new Pet("Bubbles", 1);
+    anotherPet = new WaterPet("Bubbles", 1);
     assertTrue(anotherPet.equals(testPet));
   }
 
@@ -158,22 +158,22 @@ public class PetTest {
   @Test
   public void save_savesPlayerIdToDB_true() {
     Player player = new Player("Henry", "henry@henry.com");
-    anotherPet = new Pet("Spud", player.getId());
-    Pet savedPet = Pet.find(anotherPet.getId());
+    anotherPet = new WaterPet("Spud", player.getId());
+    WaterPet savedPet = WaterPet.find(anotherPet.getId());
     assertTrue(savedPet.getPlayerId()==player.getId());
   }
 
   @Test
   public void find_returnsPetWithSameId_otherPet() {
-    anotherPet = new Pet("Spud", 1);
+    anotherPet = new WaterPet("Spud", 1);
     assertTrue(Pet.find(anotherPet.getId()).equals(anotherPet));
   }
 
   @Test
   public void all_returnsAllInstancesOfPet_true() {
-    anotherPet = new Pet("Spud", 1);
-    assertTrue(Pet.all().get(0).equals(testPet));
-    assertTrue(Pet.all().get(1).equals(anotherPet));
+    anotherPet = new WaterPet("Spud", 1);
+    assertTrue(WaterPet.all().get(0).equals(testPet));
+    assertTrue(WaterPet.all().get(1).equals(anotherPet));
   }
 
   @Test
