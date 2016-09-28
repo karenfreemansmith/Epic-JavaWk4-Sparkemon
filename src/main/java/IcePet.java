@@ -1,18 +1,21 @@
-import java.util.Timer;
 import org.sql2o.*;
+import java.util.List;
+import java.sql.Timestamp;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class BugPet extends Pet {
+public class IcePet extends Pet {
   private int specialLevel;
   public static final int MAX_SPECIAL_LEVEL = 8;
 
-  public BugPet(String name, int playerId) {
+  public IcePet(String name, int playerId) {
     this.name = name;
     this.playerId = playerId;
     foodLevel=MAX_FOOD_LEVEL/2;
     sleepLevel=MAX_SLEEP_LEVEL/2;
     playLevel=MAX_PLAY_LEVEL/2;
-    fireLevel=MAX_SPECIAL_LEVEL/2;
-    time = new Timer();
+    specialLevel=MAX_SPECIAL_LEVEL/2;
+    timer = new Timer();
     save();
   }
 
@@ -27,7 +30,7 @@ public class BugPet extends Pet {
   }
 
   @Override
-  public void isAlive() {
+  public boolean isAlive() {
     if(foodLevel <= MIN_ALL_LEVELS ||
       playLevel <= MIN_ALL_LEVELS ||
       sleepLevel <= MIN_ALL_LEVELS ||
@@ -41,26 +44,26 @@ public class BugPet extends Pet {
     return specialLevel;
   }
 
-  public void fire() {
-    if(specialLevel >= MAX_FIRE_LEVEL) {
+  public void special() {
+    if(specialLevel >= MAX_SPECIAL_LEVEL) {
       throw new UnsupportedOperationException ("Even special pets can get too much attention - back off!");
     }
-    fireLevel++;
+    specialLevel++;
   }
 
-  public static List<BugPet> all() {
+  public static List<IcePet> all() {
     String sql = "SELECT * FROM pets WHERE type=1";
     try(Connection cn = DB.sql2o.open()) {
-      return cn.createQuery(sql).executeAndFetch(BugPet.class);
+      return cn.createQuery(sql).executeAndFetch(IcePet.class);
     }
   }
 
-  public static BugPet find(int id) {
+  public static IcePet find(int id) {
     String sql = "SELECT * FROM pets WHERE id=:id";
     try(Connection cn = DB.sql2o.open()) {
-      BugPet pet = cn.createQuery(sql)
+      IcePet pet = cn.createQuery(sql)
         .addParameter("id", id)
-        .executeAndFetchFirst(BugPet.class);
+        .executeAndFetchFirst(IcePet.class);
       return pet;
     }
   }
