@@ -6,11 +6,13 @@ import java.util.TimerTask;
 
 public class RockPet extends Pet {
   private int specialLevel;
+  public static final int PET_TYPE=16;
   public static final int MAX_SPECIAL_LEVEL = 8;
 
   public RockPet(String name, int playerId) {
     this.name = name;
     this.playerId = playerId;
+    type=PET_TYPE;
     foodLevel=MAX_FOOD_LEVEL/2;
     sleepLevel=MAX_SLEEP_LEVEL/2;
     playLevel=MAX_PLAY_LEVEL/2;
@@ -52,9 +54,9 @@ public class RockPet extends Pet {
   }
 
   public static List<RockPet> all() {
-    String sql = "SELECT * FROM pets WHERE type=1";
+    String sql = "SELECT * FROM pets WHERE type=16";
     try(Connection cn = DB.sql2o.open()) {
-      return cn.createQuery(sql).executeAndFetch(RockPet.class);
+      return cn.createQuery(sql).throwOnMappingFailure(false).executeAndFetch(RockPet.class);
     }
   }
 
@@ -63,6 +65,7 @@ public class RockPet extends Pet {
     try(Connection cn = DB.sql2o.open()) {
       RockPet pet = cn.createQuery(sql)
         .addParameter("id", id)
+        .throwOnMappingFailure(false)
         .executeAndFetchFirst(RockPet.class);
       return pet;
     }

@@ -6,11 +6,13 @@ import java.util.TimerTask;
 
 public class FlyingPet extends Pet {
   private int specialLevel;
+  public static final int PET_TYPE=8;
   public static final int MAX_SPECIAL_LEVEL = 8;
 
   public FlyingPet(String name, int playerId) {
     this.name = name;
     this.playerId = playerId;
+    type=PET_TYPE;
     foodLevel=MAX_FOOD_LEVEL/2;
     sleepLevel=MAX_SLEEP_LEVEL/2;
     playLevel=MAX_PLAY_LEVEL/2;
@@ -52,9 +54,9 @@ public class FlyingPet extends Pet {
   }
 
   public static List<FlyingPet> all() {
-    String sql = "SELECT * FROM pets WHERE type=1";
+    String sql = "SELECT * FROM pets WHERE type=8";
     try(Connection cn = DB.sql2o.open()) {
-      return cn.createQuery(sql).executeAndFetch(FlyingPet.class);
+      return cn.createQuery(sql).throwOnMappingFailure(false).executeAndFetch(FlyingPet.class);
     }
   }
 
@@ -63,6 +65,7 @@ public class FlyingPet extends Pet {
     try(Connection cn = DB.sql2o.open()) {
       FlyingPet pet = cn.createQuery(sql)
         .addParameter("id", id)
+        .throwOnMappingFailure(false)
         .executeAndFetchFirst(FlyingPet.class);
       return pet;
     }

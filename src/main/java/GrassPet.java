@@ -6,11 +6,13 @@ import java.util.TimerTask;
 
 public class GrassPet extends Pet {
   private int specialLevel;
+  public static final int PET_TYPE=10;
   public static final int MAX_SPECIAL_LEVEL = 8;
 
   public GrassPet(String name, int playerId) {
     this.name = name;
     this.playerId = playerId;
+    type=PET_TYPE;
     foodLevel=MAX_FOOD_LEVEL/2;
     sleepLevel=MAX_SLEEP_LEVEL/2;
     playLevel=MAX_PLAY_LEVEL/2;
@@ -52,9 +54,9 @@ public class GrassPet extends Pet {
   }
 
   public static List<GrassPet> all() {
-    String sql = "SELECT * FROM pets WHERE type=1";
+    String sql = "SELECT * FROM pets WHERE type=10";
     try(Connection cn = DB.sql2o.open()) {
-      return cn.createQuery(sql).executeAndFetch(GrassPet.class);
+      return cn.createQuery(sql).throwOnMappingFailure(false).executeAndFetch(GrassPet.class);
     }
   }
 
@@ -63,6 +65,7 @@ public class GrassPet extends Pet {
     try(Connection cn = DB.sql2o.open()) {
       GrassPet pet = cn.createQuery(sql)
         .addParameter("id", id)
+        .throwOnMappingFailure(false)
         .executeAndFetchFirst(GrassPet.class);
       return pet;
     }

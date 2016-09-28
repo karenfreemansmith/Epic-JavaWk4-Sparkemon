@@ -16,6 +16,7 @@ public abstract class Pet {
   public Timestamp lastAte;
   public Timestamp lastPlayed;
   public Timer timer;
+  public int type;
 
   public static final int MAX_FOOD_LEVEL = 6;
   public static final int MAX_SLEEP_LEVEL = 12;
@@ -133,11 +134,12 @@ public abstract class Pet {
   }
 
   public void save() {
-    String sql = "INSERT INTO pets (name, playerId, birthday) VALUES (:name, :playerId, now())";
+    String sql = "INSERT INTO pets (name, playerId, birthday, type) VALUES (:name, :playerId, now(), :type)";
     try(Connection cn = DB.sql2o.open()) {
       this.id=(int) cn.createQuery(sql, true)
         .addParameter("name", this.name)
         .addParameter("playerId", this.playerId)
+        .addParameter("type", this.type)
         .executeUpdate()
         .getKey();
     }
