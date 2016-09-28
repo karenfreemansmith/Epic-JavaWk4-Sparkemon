@@ -71,7 +71,7 @@ public class FirePetTest {
   @Test
   public void play_recordsTimeLastPlayedInDatabase() {
     testPet.play();
-    Timestamp lastPlayed = Pet.find(testPet.getId()).getLastPlayed();
+    Timestamp lastPlayed = FirePet.find(testPet.getId()).getLastPlayed();
     Timestamp rightNow = new Timestamp(new Date().getTime());
     assertEquals(DateFormat.getDateTimeInstance().format(rightNow), DateFormat.getDateTimeInstance().format(lastPlayed));
   }
@@ -159,7 +159,7 @@ public class FirePetTest {
   public void save_savesPlayerIdToDB_true() {
     Player player = new Player("Henry", "henry@henry.com");
     anotherPet = new FirePet("Spud", player.getId());
-    FirePet savedPet = Pet.find(anotherPet.getId());
+    FirePet savedPet = FirePet.find(anotherPet.getId());
     assertTrue(savedPet.getPlayerId()==player.getId());
   }
 

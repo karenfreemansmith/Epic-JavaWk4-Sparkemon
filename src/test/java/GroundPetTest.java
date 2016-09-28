@@ -71,7 +71,7 @@ public class GroundPetTest {
   @Test
   public void play_recordsTimeLastPlayedInDatabase() {
     testPet.play();
-    Timestamp lastPlayed = Pet.find(testPet.getId()).getLastPlayed();
+    Timestamp lastPlayed = GroundPet.find(testPet.getId()).getLastPlayed();
     Timestamp rightNow = new Timestamp(new Date().getTime());
     assertEquals(DateFormat.getDateTimeInstance().format(rightNow), DateFormat.getDateTimeInstance().format(lastPlayed));
   }
@@ -159,7 +159,7 @@ public class GroundPetTest {
   public void save_savesPlayerIdToDB_true() {
     Player player = new Player("Henry", "henry@henry.com");
     anotherPet = new GroundPet("Spud", player.getId());
-    GroundPet savedPet = Pet.find(anotherPet.getId());
+    GroundPet savedPet = GroundPet.find(anotherPet.getId());
     assertTrue(savedPet.getPlayerId()==player.getId());
   }
 
