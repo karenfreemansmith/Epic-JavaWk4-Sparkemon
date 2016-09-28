@@ -24,17 +24,17 @@ public class WaterPetTest {
 
   @Test
   public void pet_instantiatesWithHalfPlayLevel() {
-    assertEquals(testPet.getPlayLevel(), Pet.MAX_PLAY_LEVEL/2);
+    assertEquals(testPet.getPlayLevel(), WaterPet.MAX_PLAY_LEVEL/2);
   }
 
   @Test
   public void pet_instantiatesWithHalfSleepLevel() {
-    assertEquals(testPet.getSleepLevel(), Pet.MAX_SLEEP_LEVEL/2);
+    assertEquals(testPet.getSleepLevel(), WaterPet.MAX_SLEEP_LEVEL/2);
   }
 
   @Test
   public void pet_instantiatesWithHalfFoodLevel() {
-    assertEquals(testPet.getFoodLevel(), Pet.MAX_FOOD_LEVEL/2);
+    assertEquals(testPet.getFoodLevel(), WaterPet.MAX_FOOD_LEVEL/2);
   }
 
   @Test
@@ -45,27 +45,27 @@ public class WaterPetTest {
   @Test
   public void depleteLevels_reducesAllLevels() {
     testPet.depleteLevels();
-    assertEquals(testPet.getFoodLevel(), (Pet.MAX_FOOD_LEVEL/2)-1);
-    assertEquals(testPet.getSleepLevel(), (Pet.MAX_SLEEP_LEVEL/2)-1);
-    assertEquals(testPet.getPlayLevel(), (Pet.MAX_PLAY_LEVEL/2)-1);
+    assertEquals(testPet.getFoodLevel(), (WaterPet.MAX_FOOD_LEVEL/2)-1);
+    assertEquals(testPet.getSleepLevel(), (WaterPet.MAX_SLEEP_LEVEL/2)-1);
+    assertEquals(testPet.getPlayLevel(), (WaterPet.MAX_PLAY_LEVEL/2)-1);
   }
 
   @Test
   public void sleep_increasesPetSleepLevel() {
     testPet.sleep();
-    assertTrue(testPet.getSleepLevel()>(Pet.MAX_SLEEP_LEVEL/2));
+    assertTrue(testPet.getSleepLevel()>(WaterPet.MAX_SLEEP_LEVEL/2));
   }
 
   @Test
   public void feed_increasesPetFoodLevel() {
     testPet.feed();
-    assertTrue(testPet.getFoodLevel()>(Pet.MAX_FOOD_LEVEL/2));
+    assertTrue(testPet.getFoodLevel()>(WaterPet.MAX_FOOD_LEVEL/2));
   }
 
   @Test
   public void play_increasesPetPlayLevel() {
     testPet.play();
-    assertTrue(testPet.getPlayLevel()>(Pet.MAX_PLAY_LEVEL/2));
+    assertTrue(testPet.getPlayLevel()>(WaterPet.MAX_PLAY_LEVEL/2));
   }
 
   @Test
@@ -78,54 +78,54 @@ public class WaterPetTest {
 
   @Test
   public void pet_foodLevelCannotGoBeyondMaxValue(){
-    for(int i = Pet.MIN_ALL_LEVELS; i <= (Pet.MAX_FOOD_LEVEL + 2); i++){
+    for(int i = WaterPet.MIN_ALL_LEVELS; i <= (WaterPet.MAX_FOOD_LEVEL + 2); i++){
       try {
         testPet.feed();
       } catch (UnsupportedOperationException exception) { }
     }
-    assertTrue(testPet.getFoodLevel() <= Pet.MAX_FOOD_LEVEL);
+    assertTrue(testPet.getFoodLevel() <= WaterPet.MAX_FOOD_LEVEL);
   }
 
   @Test
   public void feed_recordsTimeLastAteInDatabase() {
     testPet.feed();
-    Timestamp lastAte = Pet.find(testPet.getId()).getLastAte();
+    Timestamp lastAte = WaterPet.find(testPet.getId()).getLastAte();
     Timestamp rightNow = new Timestamp(new Date().getTime());
     assertEquals(DateFormat.getDateTimeInstance().format(rightNow), DateFormat.getDateTimeInstance().format(lastAte));
   }
 
   @Test
   public void pet_sleepLevelCannotGoBeyondMaxValue(){
-    for(int i = Pet.MIN_ALL_LEVELS; i <= (Pet.MAX_SLEEP_LEVEL + 2); i++){
+    for(int i = WaterPet.MIN_ALL_LEVELS; i <= (WaterPet.MAX_SLEEP_LEVEL + 2); i++){
       try {
         testPet.sleep();
       } catch (UnsupportedOperationException exception) { }
     }
-    assertTrue(testPet.getSleepLevel() <= Pet.MAX_SLEEP_LEVEL);
+    assertTrue(testPet.getSleepLevel() <= WaterPet.MAX_SLEEP_LEVEL);
   }
 
   @Test
   public void sleep_recordsTimeLastSleptInDatabase() {
     testPet.sleep();
-    Timestamp lastSlept = Pet.find(testPet.getId()).getLastSlept();
+    Timestamp lastSlept = WaterPet.find(testPet.getId()).getLastSlept();
     Timestamp rightNow = new Timestamp(new Date().getTime());
     assertEquals(DateFormat.getDateTimeInstance().format(rightNow), DateFormat.getDateTimeInstance().format(lastSlept));
   }
 
   @Test
   public void pet_playLevelCannotGoBeyondMaxValue(){
-    for(int i = Pet.MIN_ALL_LEVELS; i <= (Pet.MAX_PLAY_LEVEL + 2); i++){
+    for(int i = WaterPet.MIN_ALL_LEVELS; i <= (WaterPet.MAX_PLAY_LEVEL + 2); i++){
       try {
         testPet.play();
       } catch (UnsupportedOperationException exception) { }
     }
-    assertTrue(testPet.getPlayLevel() <= Pet.MAX_PLAY_LEVEL);
+    assertTrue(testPet.getPlayLevel() <= WaterPet.MAX_PLAY_LEVEL);
   }
 
   @Test
   public void isAlive_recognizeWhenPetDies_true() {
     anotherPet = new WaterPet("Spud", 1);
-    for(int i = Pet.MIN_ALL_LEVELS; i<= Pet.MAX_FOOD_LEVEL; i++) {
+    for(int i = WaterPet.MIN_ALL_LEVELS; i<= WaterPet.MAX_FOOD_LEVEL; i++) {
       anotherPet.depleteLevels();
     }
     assertEquals(anotherPet.isAlive(), false);
@@ -139,7 +139,7 @@ public class WaterPetTest {
 
   @Test
   public void save_recordsTimeOfCreationInDatabase() {
-    Timestamp savedPetBirthday = Pet.find(testPet.getId()).getBirthday();
+    Timestamp savedPetBirthday = WaterPet.find(testPet.getId()).getBirthday();
     Timestamp rightNow = new Timestamp(new Date().getTime());
     assertEquals(rightNow.getDay(), savedPetBirthday.getDay());
   }
@@ -152,7 +152,7 @@ public class WaterPetTest {
 
   @Test
   public void save_returnsTrueIfNamesAreTheSame() {
-    assertTrue(Pet.all().get(0).equals(testPet));
+    assertTrue(WaterPet.all().get(0).equals(testPet));
   }
 
   @Test
@@ -166,7 +166,7 @@ public class WaterPetTest {
   @Test
   public void find_returnsPetWithSameId_otherPet() {
     anotherPet = new WaterPet("Spud", 1);
-    assertTrue(Pet.find(anotherPet.getId()).equals(anotherPet));
+    assertTrue(WaterPet.find(anotherPet.getId()).equals(anotherPet));
   }
 
   @Test

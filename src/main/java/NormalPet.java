@@ -1,18 +1,21 @@
-import java.util.Timer;
 import org.sql2o.*;
+import java.util.List;
+import java.sql.Timestamp;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class FirePet extends Pet {
-  private int fireLevel;
-  public static final int MAX_FIRE_LEVEL = 8;
+public class NormalPet extends Pet {
+  private int specialLevel;
+  public static final int MAX_SPECIAL_LEVEL = 8;
 
-  public FirePet(String name, int playerId) {
+  public NormalPet(String name, int playerId) {
     this.name = name;
     this.playerId = playerId;
     foodLevel=MAX_FOOD_LEVEL/2;
     sleepLevel=MAX_SLEEP_LEVEL/2;
     playLevel=MAX_PLAY_LEVEL/2;
-    fireLevel=MAX_FIRE_LEVEL/2;
-    time = new Timer();
+    specialLevel=MAX_SPECIAL_LEVEL/2;
+    timer = new Timer();
     save();
   }
 
@@ -22,45 +25,45 @@ public class FirePet extends Pet {
       playLevel--;
       foodLevel--;
       sleepLevel--;
-      fireLevel--;
+      specialLevel--;
     }
   }
 
   @Override
-  public void isAlive() {
+  public boolean isAlive() {
     if(foodLevel <= MIN_ALL_LEVELS ||
       playLevel <= MIN_ALL_LEVELS ||
       sleepLevel <= MIN_ALL_LEVELS ||
-      fireLevel <= MIN_ALL_LEVELS) {
+      specialLevel <= MIN_ALL_LEVELS) {
       return false;
     }
     return true;
   }
 
-  public int getfireLevel() {
-    return fireLevel;
+  public int getSpecialLevel() {
+    return specialLevel;
   }
 
-  public void fire() {
-    if(fireLevel >= MAX_FIRE_LEVEL) {
-      throw new UnsupportedOperationException ("Even fire pets can burn, don't give it too much kindling!");
+  public void special() {
+    if(specialLevel >= MAX_SPECIAL_LEVEL) {
+      throw new UnsupportedOperationException ("Even special pets can get too much attention - back off!");
     }
-    fireLevel++;
+    specialLevel++;
   }
 
-  public static List<FirePet> all() {
-    String sql = "SELECT * FROM pets";
+  public static List<NormalPet> all() {
+    String sql = "SELECT * FROM pets WHERE type=1";
     try(Connection cn = DB.sql2o.open()) {
-      return cn.createQuery(sql).executeAndFetch(FirePet.class);
+      return cn.createQuery(sql).executeAndFetch(NormalPet.class);
     }
   }
 
-  public static FirePet find(int id) {
+  public static NormalPet find(int id) {
     String sql = "SELECT * FROM pets WHERE id=:id";
     try(Connection cn = DB.sql2o.open()) {
-      FirePet pet = cn.createQuery(sql)
+      NormalPet pet = cn.createQuery(sql)
         .addParameter("id", id)
-        .executeAndFetchFirst(FirePet.class);
+        .executeAndFetchFirst(NormalPet.class);
       return pet;
     }
   }

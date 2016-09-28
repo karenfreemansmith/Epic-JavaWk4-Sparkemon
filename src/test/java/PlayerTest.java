@@ -61,8 +61,8 @@ public class PlayerTest {
 
   @Test
   public void getPets_returnsAllPlayerPets_petList() {
-    Pet pet1 = new Pet("Bubbles", player.getId());
-    Pet pet2 = new Pet("Spud", player.getId());
+    WaterPet pet1 = new WaterPet("Bubbles", player.getId());
+    GrassPet pet2 = new GrassPet("Spud", player.getId());
     Pet[] pets = new Pet[] {pet1, pet2};
     assertTrue(player.getPets().containsAll(Arrays.asList(pets)));
   }

@@ -22,8 +22,6 @@ public abstract class Pet {
   public static final int MAX_PLAY_LEVEL = 16;
   public static final int MIN_ALL_LEVELS = 0;
 
-
-
   public void startTimer() {
     Pet currentPet = this;
     TimerTask timerTask = new TimerTask() {
