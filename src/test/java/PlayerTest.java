@@ -67,4 +67,11 @@ public class PlayerTest {
     assertTrue(player.getPets().containsAll(Arrays.asList(pets)));
   }
 
+  @Test
+  public void delete_deletesPlayer_true() {
+    int tempId = player.getId();
+    player.delete();
+    assertTrue(Player.find(tempId)==null);
+  }
+
 }
