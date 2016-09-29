@@ -30,7 +30,7 @@ Practice project for Epicodus - Java, week 4 lessons. Create a virtual pet progr
   * CREATE DATABASE sparkemon;
   * \c sparkemon;
   * CREATE TABLE players (id serial PRIMARY KEY, name varchar, email varchar);
-  * CREATE TABLE pets (id serial PRIMARY KEY, name varchar, playerId int, birthday timestamp, lastate timestamp, lastslept timestamp, lastplayed timestamp);
+  * CREATE TABLE pets (id serial PRIMARY KEY, name varchar, playerId int, birthday timestamp, lastate timestamp, lastslept timestamp, lastplayed timestamp, lastspecial timestamp, type int, foodlevel int, sleeplevel int, playlevel int, speciallevel int);
   * CREATE DATABASE sparkemon_test WITH TEMPLATE sparkemon;
 
 * Type 'gradle run' inside the directory

@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class WaterPet extends Pet {
+public class WaterPet extends Pet implements DatabaseManagement {
   private int waterLevel;
   public static final int PET_TYPE=19;
   public static final int MAX_WATER_LEVEL = 8;
@@ -16,31 +16,11 @@ public class WaterPet extends Pet {
     foodLevel=MAX_FOOD_LEVEL/2;
     sleepLevel=MAX_SLEEP_LEVEL/2;
     playLevel=MAX_PLAY_LEVEL/2;
-    waterLevel=MAX_WATER_LEVEL/2;
+    specialLevel=MAX_WATER_LEVEL/2;
     timer = new Timer();
     save();
   }
 
-  @Override
-  public void depleteLevels() {
-    if(isAlive()) {
-      playLevel--;
-      foodLevel--;
-      sleepLevel--;
-      waterLevel--;
-    }
-  }
-
-  @Override
-  public boolean isAlive() {
-    if(foodLevel <= MIN_ALL_LEVELS ||
-      playLevel <= MIN_ALL_LEVELS ||
-      sleepLevel <= MIN_ALL_LEVELS ||
-      waterLevel <= MIN_ALL_LEVELS) {
-      return false;
-    }
-    return true;
-  }
 
   public int getWaterLevel() {
     return waterLevel;

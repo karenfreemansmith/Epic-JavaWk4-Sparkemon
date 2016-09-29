@@ -1,8 +1,9 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-archivesBaseName = "foldername"
+archivesBaseName = "sparkemon"
 version = '1.0'
+
 mainClassName = "App"
 
 repositories {

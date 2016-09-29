@@ -1,0 +1,96 @@
+<h1>$pet.getName()</h1>
+<form action="/pets/$pet.getId()" method="post">
+  <input type="text" name="petname" id="petname" value="$pet.getName()">
+  <button type="submit">Update Pet Name</button>
+</form>
+<a href="/sleep/pets/$pet.getId()"><button class="btn btn-primary">Sleep</button></a>
+<a href="/feed/pets/$pet.getId()"><button class="btn btn-warning">Feed</button></a>
+<a href="/play/pets/$pet.getId()"><button class="btn btn-danger">Play</button></a>
+#if($msg)
+<strong>$msg</strong>
+#end
+
+<h2>A $pet.getPetType() pet owned by: <a href="/players/$player.getId()">$player.getName()</a></h2>
+<h2>Birthday: $pet.getBirthday()</h2>
+
+
+
+<h2>Food level: $pet.getFoodLevel()</h2>
+<h2>Sleep level: $pet.getSleepLevel()</h2>
+<h2>Play level: $pet.getPlayLevel()</h2>
+<!--for BugPets-->
+#if ($pet.getType() == 1 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for DarkPets-->
+#if ($pet.getType() == 2 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for DragonPets-->
+#if ($pet.getType() == 3 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for ElectricPets-->
+#if ($pet.getType() == 4 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for FairyPets-->
+#if ($pet.getType() == 5 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for FightingPets-->
+#if ($pet.getType() == 6 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for FirePets-->
+#if ($pet.getType() == 7 && $pet.getfireLevel())
+  <h2>Fire Level: $pet.getfireLevel()</h2>
+#end
+<!--for FlyingPets-->
+#if ($pet.getType() == 8 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for GhostPets-->
+#if ($pet.getType() == 9 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for GrassPets-->
+#if ($pet.getType() == 10 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for GroundPets-->
+#if ($pet.getType() == 11 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for IcePets-->
+#if ($pet.getType() == 12 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for NormalPets-->
+#if ($pet.getType() == 13 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for PoisonPets-->
+#if ($pet.getType() == 14 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for PsychicPets-->
+#if ($pet.getType() == 15 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for RockPets-->
+#if ($pet.getType() == 16 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for SteelPets-->
+#if ($pet.getType() == 17 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for UnknownPets-->
+#if ($pet.getType() == 18 && $pet.getSpecialLevel())
+  <h2>Special Level: $pet.getSpecialLevel()</h2>
+#end
+<!--for WaterPets-->
+#if ($pet.getType() == 19 && $pet.getWaterLevel())
+  <h2>Water Level: $pet.getWaterLevel()</h2>
+#end

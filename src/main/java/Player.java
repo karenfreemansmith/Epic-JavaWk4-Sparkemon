@@ -1,6 +1,7 @@
 import org.sql2o.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Player implements DatabaseManagement {
   private int id;
@@ -213,8 +214,77 @@ public class Player implements DatabaseManagement {
 
       return allPets;
     }
+
+
   }
 
 
-
+  public Pet addPetToPlayer() {
+    Random rand = new Random();
+    Pet pet;
+    int type = rand.nextInt(19)+1;
+    switch (type) {
+      case 1:
+        pet = new BugPet("pet", this.id);
+        break;
+      case 2:
+        pet = new DarkPet("pet", this.id);
+        break;
+      case 3:
+        pet = new DragonPet("pet", this.id);
+        break;
+      case 4:
+        pet = new ElectricPet("pet", this.id);
+        break;
+      case 5:
+        pet = new FairyPet("pet", this.id);
+        break;
+      case 6:
+        pet = new FightingPet("pet", this.id);
+        break;
+      case 7:
+        pet = new FirePet("pet", this.id);
+        break;
+      case 8:
+        pet = new FlyingPet("pet", this.id);
+        break;
+      case 9:
+        pet = new GhostPet("pet", this.id);
+        break;
+      case 10:
+        pet = new GrassPet("pet", this.id);
+        break;
+      case 11:
+        pet = new GroundPet("pet", this.id);
+        break;
+      case 12:
+        pet = new IcePet("pet", this.id);
+        break;
+      case 13:
+        pet = new NormalPet("pet", this.id);
+        break;
+      case 14:
+        pet = new PoisonPet("pet", this.id);
+        break;
+      case 15:
+        pet = new PsychicPet("pet", this.id);
+        break;
+      case 16:
+        pet = new RockPet("pet", this.id);
+        break;
+      case 17:
+        pet = new SteelPet("pet", this.id);
+        break;
+      case 18:
+        pet = new UnknownPet("pet", this.id);
+        break;
+      case 19:
+        pet = new WaterPet("pet", this.id);
+        break;
+      default:
+        pet = new NormalPet("pet", this.id);
+      //throw an exception, pet type not supported
+    }
+    return pet;
+  }
 }

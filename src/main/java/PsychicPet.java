@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class PsychicPet extends Pet {
+public class PsychicPet extends Pet implements DatabaseManagement {
   private int specialLevel;
   public static final int PET_TYPE=15;
   public static final int MAX_SPECIAL_LEVEL = 8;
@@ -21,26 +21,8 @@ public class PsychicPet extends Pet {
     save();
   }
 
-  @Override
-  public void depleteLevels() {
-    if(isAlive()) {
-      playLevel--;
-      foodLevel--;
-      sleepLevel--;
-      specialLevel--;
-    }
-  }
 
-  @Override
-  public boolean isAlive() {
-    if(foodLevel <= MIN_ALL_LEVELS ||
-      playLevel <= MIN_ALL_LEVELS ||
-      sleepLevel <= MIN_ALL_LEVELS ||
-      specialLevel <= MIN_ALL_LEVELS) {
-      return false;
-    }
-    return true;
-  }
+
 
   public int getSpecialLevel() {
     return specialLevel;

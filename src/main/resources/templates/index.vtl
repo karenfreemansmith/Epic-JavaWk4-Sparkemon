@@ -1,5 +1,10 @@
+#if($result)
+<h1>$result</h1>
+#else
 <h1>My Form</h1>
-<form action='/result'>
+#end
+<h3><a href="/players">View or Add Players</a></h3>
+<form action='/' method="post">
   <div class="form-group">
     <label for="item1">Item 1: </label>
     <input id="item1" name="item1" class="form-control" type="text">

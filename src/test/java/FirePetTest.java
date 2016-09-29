@@ -197,4 +197,11 @@ public class FirePetTest {
     assertTrue(testPet.getFoodLevel() >=0);
   }
 
+  @Test
+  public void delete_deletesFirePet_true() {
+    int tempId = testPet.getId();
+    testPet.delete();
+    assertEquals(null, FirePet.find(tempId));
+  }
+
 }

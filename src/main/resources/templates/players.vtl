@@ -1,0 +1,22 @@
+#if($players)
+<h1>Players</h1>
+<ul>
+  #foreach($player in $players)
+    <li><a href="/players/$player.getId()">$player.getName()</a></li>
+  #end
+</ul>
+#else
+<h1>Add Player:</h1>
+#end
+
+<form action='/players' method="post">
+  <div class="form-group">
+    <label for="player">Name of Player: </label>
+    <input id="player" name="player" class="form-control" type="text">
+  </div>
+  <div class="form-group">
+    <label for="email">Player Email: </label>
+    <input id="email" name="email" class="form-control" type="text">
+  </div>
+  <button type='submit' class='btn'>Add Player</button>
+</form>

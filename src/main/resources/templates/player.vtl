@@ -1,0 +1,14 @@
+<h1>$player.getName()</h1>
+#if ($pets)
+  <ul>
+    #foreach ($pet in $pets)
+      <li><a href="/pets/$pet.getId()">$pet.getName()</a></li>
+    #end
+  </ul>
+#else
+  <p>You currently have no pets :(.</p>
+#end
+
+<form action="/addpet/$player.getId()" method="get">
+  <button type="submit" class="btn btn-default">Add a pet</button>
+</form>
