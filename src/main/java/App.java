@@ -21,27 +21,16 @@ public class App {
 
     setPort(port);
 
+
+
     get("/", (request, response) -> {
-      Map<String, Object> model = new HashMap<String, Object>();
-      model.put("template", "templates/index.vtl");
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
-
-    post("/", (request, response) -> {
-      Map<String, Object> model = new HashMap<String, Object>();
-      model.put("result", request.queryParams("item1"));
-      model.put("template", "templates/index.vtl");
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
-
-    get("/players", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("players", Player.all());
       model.put("template", "templates/players.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    post("/players", (request, response) -> {
+    post("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       Player player = new Player(request.queryParams("player"), request.queryParams("email"));
       model.put("player", player);

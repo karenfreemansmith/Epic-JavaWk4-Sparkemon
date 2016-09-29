@@ -1,5 +1,6 @@
 import org.sql2o.*;
 import java.util.List;
+import java.text.SimpleDateFormat;
 import java.sql.Timestamp;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -78,9 +79,12 @@ public class Pet {
     return playerId;
   }
 
-  public Timestamp getBirthday() {
-    return birthday;
+  public String getBirthday() {
+    String S = new SimpleDateFormat("MMMMM dd, yyyy").format(birthday);
+    return S;
   }
+
+
 
   public int getFoodLevel() {
     return foodLevel;
@@ -111,10 +115,12 @@ public class Pet {
   }
 
   public void feed() {
-    if(foodLevel>=MAX_FOOD_LEVEL) {
+
+    foodLevel++;
+    if(foodLevel>MAX_FOOD_LEVEL) {
       throw new UnsupportedOperationException("Your pet is full, you cannot feed it more at this time.");
     }
-    foodLevel++;
+
     String sql = "UPDATE pets SET lastate = now(), foodlevel=:food WHERE id=:id";
     try(Connection cn = DB.sql2o.open()) {
       cn.createQuery(sql)
@@ -126,10 +132,11 @@ public class Pet {
   }
 
   public void sleep() {
-    if(sleepLevel>=MAX_SLEEP_LEVEL) {
+    sleepLevel++;
+    if(sleepLevel>MAX_SLEEP_LEVEL) {
       throw new UnsupportedOperationException("Your pet is not tired, it will not sleep right now.");
     }
-    sleepLevel++;
+
     String sql = "UPDATE pets SET lastslept = now(), sleeplevel=:sleep WHERE id=:id";
     try(Connection cn = DB.sql2o.open()) {
       cn.createQuery(sql)
@@ -141,10 +148,11 @@ public class Pet {
   }
 
   public void play() {
-    if(playLevel>=MAX_PLAY_LEVEL) {
+        playLevel++;
+    if(playLevel>MAX_PLAY_LEVEL) {
       throw new UnsupportedOperationException("Your pet is bored, it refuses to play anymore.");
     }
-    playLevel++;
+
     String sql = "UPDATE pets SET lastplayed = now(), playlevel=:play  WHERE id=:id";
     try(Connection cn = DB.sql2o.open()) {
       cn.createQuery(sql)
